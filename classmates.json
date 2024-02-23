@@ -1,0 +1,16 @@
+[
+    {
+        "name": "Árpás Kevin", 
+        "job": "kapanyél hegesztő", 
+        "age":26
+    },
+    {
+        "name": "Refka Bence" , 
+        "job": "favágó", 
+        "age": 59
+    },
+    {
+        "name":"Csizmadia Márk", 
+        "job": "vonatkerék pumpáló", 
+        "age":13}
+    ]

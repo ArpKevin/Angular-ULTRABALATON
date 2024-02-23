@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <title>Document</title>
+</head>
+<body ng-app="classmateApp" ng-controller="classmateController">
+    <h1>{{title}}</h1>
+
+    <input type="text" ng-model="search" placeholder="Osztálytárs keresése...">
+
+    <ul>
+        <li ng-repeat="classmate in classmates | filter:search">
+            <span><b>{{classmate.name}}</b> - {{classmate.job}} ({{classmate.age}} éves)</span>
+        </li>
+    </ul>
+
+    <h2>Új osztálytárs hozzáadása</h2>
+    <form ng-submit="addClassmate()">
+        <input type="text" ng-model="newClassmate.name" placeholder="Név:">
+        <input type="text" ng-model="newClassmate.job" placeholder="Pozíció:">
+        <input type="text" ng-model="newClassmate.age" placeholder="Kora:">
+        <button type="submit">Hozzáadás az osztályhoz</button>
+    </form>
+
+    <script>
+        let app = angular.module('classmateApp', []);
+        app.controller('classmateController', function($scope){
+            $scope.title = "Osztály névsor";
+            console.log($scope.title);
+
+            $scope.classmates = [
+                {name: "Árpás Kevin", job: "kapanyél hegesztő", age:26},
+                {name: "Refka Bence" , job: "favágó", age: 59},
+                {name:"Csizmadia Márk", job: "vonatkerék pumpáló", age:13}
+            ];
+            //új osztálytárs hozzáadása
+            $scope.newClassmate = {};
+            $scope.addClassmate = function(){
+                $scope.classmates.push({
+                    name:$scope.newClassmate.name,
+                    job:$scope.newClassmate.job,
+                    age:$scope.newClassmate.age
+                });
+                $scope.newClassmate = {};
+            }
+        })
+    </script>
+</body>
+</html>

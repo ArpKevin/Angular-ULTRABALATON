@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="AngularStart">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.9/angular.min.js"></script>
+    <script src="js/app.js"></script>
+    <script src="js/maincontroller.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <title>Document</title>
+    <style>
+        body {
+            padding: 20px
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Angular.js</h1>
+    <div ng-controller="MainController">
+        <h2>Szia! {{'Ez itt ' + 'Angular művelet ' + 'végrehajtása lesz!'}} </h2>
+
+        <h2>{{szoveg}}</h2>
+
+        <h3>Szöveg: </h3>
+        <input type="text" ng-model="szoveg" style="width: 300px;">
+
+        <h2>Automatikus lista</h2>
+
+        <ul>
+            <li ng-repeat="ember in emberek">
+                <span><b>{{ember.nev }}</b> ({{ember.eletkor}}éves)</span>
+            </li>
+        </ul>
+
+        <h2>Index számmal bővített lista</h2>
+
+        <ul>
+            <li ng-repeat="ember in emberek">
+                <span>{{$index + 1 +'. '}}<b>{{ember.nev }}</b> ({{ember.eletkor}}éves)</span>
+            </li>
+        </ul>
+        <hr>
+        <h2>További logikai változókat</h2>
+        <!--ezek az ng-repeat direktíva változói
+-->
+        <p>$first, $middle, $last, $odd; $even</p>
+
+
+        <ul>
+            <li ng-repeat="ember in emberek">
+                <span>{{$index +'. '}} ({{$first}}, {{$middle}}, {{$last}}, {{$odd}}; {{$even}})<b>{{ember.nev }}</b>
+                    ({{ember.eletkor}}éves)</span>
+            </li>
+        </ul>
+
+
+        <!--Ha páros indexe van akkor a nevet fél kövéren írja ki, 
+        ha báratlan akkor dőlt betűvel-->
+        <h2>Szelektált lista</h2>
+        <ul>
+            <li ng-repeat="ember in emberek">
+                <span ng-if="$even">{{$index+1}}. <b>{{ember.nev}}</b> ({{ember.eletkor}} éves)</span>
+                <span ng-if="$odd">{{$index+1}}. <i>{{ember.nev}}</i> ({{ember.eletkor}} éves)</span>
+            </li>
+        </ul>
+        <hr>
+        <h2>Automatikusan generált legördülő lista</h2>
+        <b>Név:</b>
+        <select ng-model="valasztottEmber" ng-options="ember.nev for ember in emberek"
+            onchange="$('#tehat').hide();$('#histruelove').val('');"></select>
+
+        <b>Ezeket a csajokat kedvelték:</b>
+        <select ng-model="valasztottCsaj" onchange="$('#tehat').show();">
+            <option ng-repeat="csaj in valasztottEmber.csajok">{{csaj}}</option>
+        </select>
+        <b>Szerelme:</b>
+        <input type="text" ng-model="valasztottCsaj" id="histruelove">
+
+        <div id="tehat" style="display: none;">
+            <p>Tehát, <b>{{valasztottEmber.nev}}</b> szerelme <b>{{valasztottCsaj}}</b> volt.</p>
+        </div>
+<br>
+<br>
+<br>
+    </div>
+</body>
+
+</html>
